@@ -2,22 +2,22 @@ const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/users.controller');
 const response = require('../middlewares/response.middleware')
-const {verityUser} = require("../middlewares/auth.middleware");
+const {verifyUser} = require("../middlewares/auth.middleware");
 
 router.get('/',
-    verityUser,
+    verifyUser,
     usersController.getAll,
     response.send
   );
 
 router.post('/',
-    verityUser,
+    verifyUser,
     usersController.create,
     response.send
 )
 
 router.get('/userNames',
-    verityUser,
+    verifyUser,
     usersController.getUserNames,
     response.send
   )

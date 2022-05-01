@@ -4,7 +4,7 @@ const ErrorWithStatus = require("../../utils/ErrorWithStatus");
 const httpStatusCodes = require("http-status");
 const {ERROR_TYPES} = require("../../config/errors");
 
-exports.verityUser = (req, res, next) => {
+exports.verifyUser = (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(' ')[1]
         if (!token) {
