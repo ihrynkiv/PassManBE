@@ -1,6 +1,6 @@
 const httpStatusCodes = require('http-status');
-const ErrorWithStatus = require("../utils/ErrorWithStatus");
-const { ERROR_TYPES, ERROR_CODES } = require("../config/errors");
+const ErrorWithStatus = require("../../utils/ErrorWithStatus");
+const { ERROR_TYPES, ERROR_CODES } = require("../../config/errors");
 
 // eslint-disable-next-line no-unused-vars
 const errorsHandler = (error, req, res, next) => {

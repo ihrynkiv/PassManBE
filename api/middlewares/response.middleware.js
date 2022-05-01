@@ -1,5 +1,5 @@
 const httpStatusCodes = require('http-status');
-const ErrorWithStatus = require("../utils/ErrorWithStatus");
+const ErrorWithStatus = require("../../utils/ErrorWithStatus");
 exports.send = (req, res, next) => {
   const status = req.responseStatus
   const data = req.responseData

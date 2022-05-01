@@ -3,8 +3,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const usersRouter = require('./routes/users');
-const errorsHandler = require("./middlewares/errorHandler.middleware");
+const usersRouter = require('./api/routes/users.route');
+const errorsHandler = require("./api/middlewares/errorHandler.middleware");
 const { RouteNotFoundError } = require("./utils/RouteNotFound.error");
 
 const app = express();
