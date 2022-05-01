@@ -19,8 +19,9 @@ exports.registration = async (req, res, next) => {
         const { username, password } = req.body
         const hashPassword = bcrypt.hashSync(password, 6)
         const createdUser = await UserService.create({ username, password: hashPassword })
+        const token = getAccessToken(createdUser.id, createdUser.username)
         req.responseStatus = httpStatusCodes.OK;
-        req.responseData = createdUser;
+        req.responseData = token;
         return next()
     } catch (e) {
         return next(
