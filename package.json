@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
     "migrate": "node-pg-migrate"
   },
   "dependencies": {
+    "body-parser": "^1.20.0",
+    "compression": "^1.7.4",
     "config": "^3.3.7",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -14,6 +17,7 @@
     "http-status": "^1.5.1",
     "morgan": "~1.9.1",
     "node-pg-migrate": "^6.2.1",
+    "nodemon": "^2.0.16",
     "pg": "^8.7.3",
     "sequelize": "^6.19.0"
   }

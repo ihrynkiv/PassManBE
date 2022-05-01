@@ -22,9 +22,15 @@ const sequelize = new Sequelize('postgres://vanya:root@localhost:5432/passman');
       type: DataTypes.DATE,
       defaultValue: sequelize.fn('NOW')
     },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.fn('NOW')
+    },
   }, {
     timestamps: true,
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   });
 
   Users.associate = (models) => {

@@ -5,7 +5,7 @@ const { ERROR_TYPES } = require("../../config/errors");
 
 exports.getAll = async (req, res, next) => {
   try {
-    const users = await usersService.get()
+    const users = await usersService.getAll()
     req.responseStatus = httpStatusCodes.OK;
     req.responseData = users;
     return next()
@@ -16,5 +16,20 @@ exports.getAll = async (req, res, next) => {
     { title: e.title ?? e.message }
     ))
   }
+}
 
+exports.create = async (req, res, next) => {
+  try {
+    const user = req.body
+    const createdUser = await usersService.create(user)
+    req.responseStatus = httpStatusCodes.OK;
+    req.responseData = createdUser;
+    return next()
+  } catch (e) {
+    return next(new ErrorWithStatus(
+      httpStatusCodes.BAD_REQUEST,
+      ERROR_TYPES.databaseError,
+      { title: e.title ?? e.message }
+    ))
+  }
 }
