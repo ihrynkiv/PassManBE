@@ -1,10 +1,10 @@
 const Users = require("../models/users.model");
 
-exports.getAll = () => {
-  return Users.findAll()
+exports.getAll = (options) => {
+  return Users.findAll(options)
 };
 
 exports.create = async (user) => {
   const createdDashboard = await Users.create(user);
   return createdDashboard?.get();
-};
+}

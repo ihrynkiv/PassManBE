@@ -18,6 +18,22 @@ exports.getAll = async (req, res, next) => {
   }
 }
 
+exports.getUserNames = async (req, res, next) => {
+  try {
+    const users = await usersService.getAll()
+    const userNames = users.map((user) => user?.username)
+    req.responseStatus = httpStatusCodes.OK;
+    req.responseData = userNames;
+    return next()
+  } catch (e) {
+    return next(new ErrorWithStatus(
+      httpStatusCodes.BAD_REQUEST,
+      ERROR_TYPES.databaseError,
+      { title: e.title ?? e.message }
+    ))
+  }
+}
+
 exports.create = async (req, res, next) => {
   try {
     const user = req.body

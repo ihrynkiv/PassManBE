@@ -13,4 +13,9 @@ router.post('/',
   response.send
 )
 
+router.get('/userNames',
+  usersController.getUserNames,
+  response.send
+  )
+
 module.exports = router;
