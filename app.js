@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const compress = require('compression');
 
 const usersRouter = require('./api/routes/users.route');
+const authRouter = require('./api/routes/auth.route');
 const errorsHandler = require("./api/middlewares/errorHandler.middleware");
 const { RouteNotFoundError } = require("./utils/RouteNotFound.error");
 
@@ -27,6 +28,7 @@ app.use(bodyParser.json())
 app.use(compress());
 
 app.use('/users', usersRouter);
+app.use('/auth', authRouter);
 
 
 app.use('/*', (req, res, next) => {

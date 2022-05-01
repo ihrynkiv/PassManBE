@@ -8,4 +8,5 @@ module.exports = {
   db_username: process.env.POSTGRES_USERNAME || 'vanya',
   db_name: process.env.POSTGRES_DATABASE || 'passman',
   db_dialect: process.env.POSTGRES_DIALECT || 'postgres',
+  jwt_key: process.env.JWT || 'NULP_IVAN_HRYNKIV_KI_47'
 };

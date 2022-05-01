@@ -2,20 +2,24 @@ const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/users.controller');
 const response = require('../middlewares/response.middleware')
+const {verityUser} = require("../middlewares/auth.middleware");
 
 router.get('/',
-  usersController.getAll,
+    verityUser,
+    usersController.getAll,
     response.send
   );
 
 router.post('/',
-  usersController.create,
-  response.send
+    verityUser,
+    usersController.create,
+    response.send
 )
 
 router.get('/userNames',
-  usersController.getUserNames,
-  response.send
+    verityUser,
+    usersController.getUserNames,
+    response.send
   )
 
 module.exports = router;
