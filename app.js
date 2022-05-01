@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const compress = require('compression');
+const cors = require('cors');
 
 const usersRouter = require('./api/routes/users.route');
 const authRouter = require('./api/routes/auth.route');
@@ -17,6 +18,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cors( {
+  origin:'http://localhost:3001',
+  credentials:true,
+  optionSuccessStatus:200
+}))
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
