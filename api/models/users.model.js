@@ -34,9 +34,9 @@ const sequelize = new Sequelize('postgres://vanya:root@localhost:5432/passman');
   });
 
   Users.associate = (models) => {
-    const DashboardsUser = models['passwords'];
+    const Passwords = models['passwords'];
 
-    Users.hasMany(DashboardsUser, {
+    Users.hasMany(Passwords, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
