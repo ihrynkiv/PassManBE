@@ -7,6 +7,6 @@ exports.find = (options) => Users.findOne({
 })
 
 exports.create = async (user) => {
-  const createdDashboard = await Users.create(user);
-  return createdDashboard?.get();
+  const createdUser = await Users.create(user);
+  return createdUser?.get();
 }
