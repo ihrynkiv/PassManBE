@@ -18,7 +18,7 @@ exports.registration = async (req, res, next) => {
     try {
         const { username, password } = req.body
         const hashPassword = bcrypt.hashSync(password, 6)
-        const createdUser = await UserService.create({ username, password: hashPassword })
+        const createdUser = await UserService.create({ username: username.toLowerCase(), password: hashPassword })
         const token = getAccessToken(createdUser.id, createdUser.username)
         req.responseStatus = httpStatusCodes.OK;
         req.responseData = token;
@@ -37,7 +37,7 @@ exports.login = async (req, res, next) => {
     try {
         const { username, password } = req.body
 
-        const user = await UserService.find({ username })
+        const user = await UserService.find({ username: username.toLowerCase() })
         if (!user) {
             throw new Error('Username not found')
         }

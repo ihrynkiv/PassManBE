@@ -17,7 +17,6 @@ router.post('/',
 )
 
 router.get('/userNames',
-  verifyUser,
   usersController.getUserNames,
   response.send
 )
