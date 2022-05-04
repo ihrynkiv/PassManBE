@@ -8,6 +8,7 @@ const cors = require('cors');
 
 const usersRouter = require('./api/routes/users.route');
 const authRouter = require('./api/routes/auth.route');
+const passwordsRouter = require('./api/routes/passwords.route');
 const errorsHandler = require("./api/middlewares/errorHandler.middleware");
 const { RouteNotFoundError } = require("./utils/RouteNotFound.error");
 
@@ -36,6 +37,7 @@ app.use(compress());
 
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/passwords', passwordsRouter);
 
 
 app.use('/*', (req, res, next) => {
