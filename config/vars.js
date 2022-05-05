@@ -10,4 +10,6 @@ module.exports = {
   db_dialect: process.env.POSTGRES_DIALECT || 'postgres',
   jwt_key: process.env.JWT || 'NULP_IVAN_HRYNKIV_KI_47',
   aes_key: process.env.aes || 'NULP_IVAN_HRYNKIV_KI_47',
+  build_origin: process.env.build_origin || 'chrome-extension://jejjhiembhpmipknecbadadjmlbngcej',
+  dev_origin: process.env.dev_origin || 'http://localhost:3001',
 };

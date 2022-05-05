@@ -11,6 +11,7 @@ const authRouter = require('./api/routes/auth.route');
 const passwordsRouter = require('./api/routes/passwords.route');
 const errorsHandler = require("./api/middlewares/errorHandler.middleware");
 const { RouteNotFoundError } = require("./utils/RouteNotFound.error");
+const {build_origin, dev_origin} = require("./config/vars");
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors( {
-  origin:'http://localhost:3001',
+  origin: build_origin || dev_origin,
   credentials:true,
   optionSuccessStatus:200
 }))
