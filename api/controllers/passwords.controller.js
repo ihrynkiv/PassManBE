@@ -13,18 +13,14 @@ exports.getAll = async (req, res, next) => {
 
     data.forEach((passwordEntity, i) => {
       const bytes = decrypt(passwordEntity.password, aes_key);
-      data[i].password = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+      data[i].password = bytes.toString(CryptoJS.enc.Utf8)
     })
 
     req.responseStatus = httpStatusCodes.OK;
     req.responseData = data
     return next()
   } catch (e) {
-    return next(new ErrorWithStatus(
-      httpStatusCodes.BAD_REQUEST,
-      ERROR_TYPES.databaseError,
-      { title: e.title ?? e.message }
-    ))
+    return next(e)
   }
 }
 

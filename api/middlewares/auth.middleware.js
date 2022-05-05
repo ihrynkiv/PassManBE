@@ -15,7 +15,7 @@ exports.verifyUser = (req, res, next) => {
     } catch (e) {
         return next(
             new ErrorWithStatus(
-                httpStatusCodes.UNAUTHORIZED,
+                401,
                 ERROR_TYPES.validation,
                 { title: e.title ?? e.message }
             ))
