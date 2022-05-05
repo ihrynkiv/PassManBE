@@ -16,4 +16,10 @@ router.post('/',
   response.send
 )
 
+router.put('/:id',
+  verifyUser,
+  passwordsController.update,
+  response.send
+)
+
 module.exports = router

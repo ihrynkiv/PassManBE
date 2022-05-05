@@ -41,3 +41,21 @@ exports.create = async (req, res, next) => {
     ))
   }
 }
+
+exports.update = async (req, res, next) => {
+  try {
+    const {userId} = req.user
+    const data = req.body
+    const hashPassword = encrypt(data.password, aes_key).toString()
+    const updatedPassword = await passwordsService.update({...data, password: hashPassword, userId })
+    req.responseStatus = httpStatusCodes.OK;
+    req.responseData = updatedPassword
+    return next()
+  } catch (e) {
+    return next(new ErrorWithStatus(
+      httpStatusCodes.BAD_REQUEST,
+      ERROR_TYPES.databaseError,
+      { title: e.title ?? e.message }
+    ))
+  }
+}

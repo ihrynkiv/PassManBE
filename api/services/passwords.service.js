@@ -6,3 +6,5 @@ exports.create = async (password) => {
   const createdPassword = await Passwords.create(password);
   return createdPassword?.get();
 }
+
+exports.update = (password) => Passwords.update(password, { where: { id: password.id }})
