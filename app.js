@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors( {
-  origin: dev_origin,
+  origin: build_origin || dev_origin,
   credentials: true,
   optionSuccessStatus: 200
 }))
