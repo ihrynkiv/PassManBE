@@ -49,3 +49,20 @@ exports.create = async (req, res, next) => {
     ))
   }
 }
+
+
+exports.whoAmI = async (req, res, next) => {
+  try {
+    const {userId} = req.user
+    const {id, username} = await usersService.find({id: userId})
+    req.responseStatus = httpStatusCodes.OK;
+    req.responseData = {id, username};
+    return next()
+  } catch (e) {
+    return next(new ErrorWithStatus(
+      httpStatusCodes.BAD_REQUEST,
+      ERROR_TYPES.databaseError,
+      { title: e.title ?? e.message }
+    ))
+  }
+}

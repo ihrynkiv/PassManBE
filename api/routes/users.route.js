@@ -21,4 +21,10 @@ router.get('/userNames',
   response.send
 )
 
+router.get('/whoami',
+  verifyUser,
+  usersController.whoAmI,
+  response.send
+)
+
 module.exports = router;

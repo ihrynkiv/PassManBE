@@ -22,9 +22,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors( {
-  origin: build_origin || dev_origin,
-  credentials:true,
-  optionSuccessStatus:200
+  origin: dev_origin,
+  credentials: true,
+  optionSuccessStatus: 200
 }))
 
 // parse application/x-www-form-urlencoded
