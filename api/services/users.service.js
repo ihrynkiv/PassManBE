@@ -10,3 +10,5 @@ exports.create = async (user) => {
   const createdUser = await Users.create(user);
   return createdUser?.get();
 }
+
+exports.update = async (userId, data) => Users.update(data, {where: {id: userId}})

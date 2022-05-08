@@ -14,6 +14,36 @@ const getAccessToken = (userId, username) => {
     return jwt.sign(payload, jwt_key, {expiresIn: "24h"})
 }
 
+exports.update = async (req, res, next) => {
+    try {
+        const { oldPassword, newPassword } = req.body
+        const {userId} = req.user
+
+        const user = await UserService.find({ id: userId })
+
+        if (!user) {
+            throw new Error('User not found')
+        }
+
+        const isPasswordValid = bcrypt.compareSync(oldPassword, user.password)
+        if(!isPasswordValid) {
+            throw new Error('Old password is wrong')
+        }
+        const hashPassword = bcrypt.hashSync(newPassword, 6)
+        await UserService.update(userId, {password: hashPassword})
+
+        req.responseStatus = httpStatusCodes.OK;
+        return next()
+    } catch (e) {
+        return next(
+          new ErrorWithStatus(
+            httpStatusCodes.BAD_REQUEST,
+            ERROR_TYPES.validation,
+            { title: e.title ?? e.message }
+          ))
+    }
+}
+
 exports.registration = async (req, res, next) => {
     try {
         const { username, password } = req.body
