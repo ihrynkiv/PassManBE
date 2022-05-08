@@ -49,3 +49,19 @@ exports.update = async (req, res, next) => {
     ))
   }
 }
+
+exports.delete = async (req, res, next) => {
+  try {
+    const {userId} = req.user
+    const {id} = req.params
+    await passwordsService.delete(id, userId)
+    req.responseStatus = httpStatusCodes.OK;
+    return next()
+  } catch (e) {
+    return next(new ErrorWithStatus(
+      httpStatusCodes.BAD_REQUEST,
+      ERROR_TYPES.databaseError,
+      { title: e.title ?? e.message }
+    ))
+  }
+}

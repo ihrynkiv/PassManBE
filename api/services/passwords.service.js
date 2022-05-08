@@ -8,3 +8,5 @@ exports.create = async (password) => {
 }
 
 exports.update = (password) => Passwords.update(password, { where: { id: password.id }})
+
+exports.delete = (id, userId) => Passwords.destroy({ where: { id, userId }})

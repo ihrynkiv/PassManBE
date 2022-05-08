@@ -22,4 +22,10 @@ router.put('/:id',
   response.send
 )
 
+router.delete('/:id',
+  verifyUser,
+  passwordsController.delete,
+  response.send
+)
+
 module.exports = router
