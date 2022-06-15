@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 const {jwt_key} = require("../../config/vars");
 const ErrorWithStatus = require("../../utils/ErrorWithStatus");
-const httpStatusCodes = require("http-status");
 const {ERROR_TYPES} = require("../../config/errors");
 
 exports.verifyUser = (req, res, next) => {
