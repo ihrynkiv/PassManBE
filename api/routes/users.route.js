@@ -16,6 +16,12 @@ router.post('/',
   response.send
 )
 
+router.put('/',
+  verifyUser,
+  usersController.updateConfiguration,
+  response.send
+)
+
 router.get('/userNames',
   usersController.getUserNames,
   response.send

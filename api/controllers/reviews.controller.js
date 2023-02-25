@@ -1,12 +1,25 @@
-const passwordsService = require("../services/passwords.service");
 const httpStatusCodes = require("http-status");
+const reviewsService = require("../services/reviews.service");
 const ErrorWithStatus = require("../../utils/ErrorWithStatus");
 const {ERROR_TYPES} = require("../../config/errors");
 
 exports.getAll = async (req, res, next) => {
   try {
     const {userId} = req.user
-    const data = await passwordsService.getAll(userId)
+    const data = await reviewsService.getAll(userId)
+
+    req.responseStatus = httpStatusCodes.OK;
+    req.responseData = data
+    return next()
+  } catch (e) {
+    return next(e)
+  }
+}
+
+exports.getOne = async (req, res, next) => {
+  try {
+    const {id} = req.query
+    const data = await reviewsService.getOne(id)
 
     req.responseStatus = httpStatusCodes.OK;
     req.responseData = data
@@ -20,9 +33,9 @@ exports.create = async (req, res, next) => {
   try {
     const {userId} = req.user
     const data = req.body
-    const createdPassword = await passwordsService.create({...data, userId })
+    const createdReview = await reviewsService.create({...data, userId })
     req.responseStatus = httpStatusCodes.OK;
-    req.responseData = createdPassword
+    req.responseData = createdReview
     return next()
   } catch (e) {
     return next(new ErrorWithStatus(
@@ -37,11 +50,12 @@ exports.update = async (req, res, next) => {
   try {
     const {userId} = req.user
     const data = req.body
-    const updatedPassword = await passwordsService.update({...data, userId })
+    const updatedReview = await reviewsService.update({...data, userId })
     req.responseStatus = httpStatusCodes.OK;
-    req.responseData = updatedPassword
+    req.responseData = updatedReview
     return next()
   } catch (e) {
+    console.log(e)
     return next(new ErrorWithStatus(
       httpStatusCodes.BAD_REQUEST,
       ERROR_TYPES.databaseError,
@@ -52,9 +66,8 @@ exports.update = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   try {
-    const {userId} = req.user
     const {id} = req.params
-    await passwordsService.delete(id, userId)
+    await reviewsService.delete(id)
     req.responseStatus = httpStatusCodes.OK;
     return next()
   } catch (e) {

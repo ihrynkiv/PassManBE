@@ -1,34 +1,24 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('postgres://vanya:root@localhost:5432/passman');
+const sequelize = new Sequelize('postgres://andrii:root@localhost:5432/check-list');
 
-const Passwords = sequelize.define('passwords', {
+const Reviews = sequelize.define('reviews', {
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER
   },
+  prId:{
+    type: DataTypes.STRING,
+    unique: true,
+  },
   userId:{
     type: 'integer',
     notNull: true,
     references: 'users',
   },
-  name: {
-    type: DataTypes.STRING,
-    notNull: true
-  },
-  username: {
-    type: DataTypes.STRING,
-    notNull: true,
-    unique: true
-  },
-  password: {
-    type: DataTypes.STRING,
-    notNull: true
-  },
-  url: {
-    type: DataTypes.STRING,
-    notNull: true
+  configuration:{
+    type:  DataTypes.JSON,
   },
   createdAt: {
     allowNull: false,
@@ -46,13 +36,19 @@ const Passwords = sequelize.define('passwords', {
   updatedAt: 'updatedAt'
 });
 
-Passwords.associate = (models) => {
+Reviews.associate = (models) => {
   const Users = models['users'];
+  // const Items = models['items'];
 
-  Passwords.hasOne(Users, {
+  Reviews.hasOne(Users, {
     foreignKey: 'id',
     onDelete: 'CASCADE',
   });
+
+  // Reviews.hasOne(Items, {
+  //   foreignKey: 'id',
+  //   onDelete: 'CASCADE',
+  // });
 };
 
-module.exports = Passwords
+module.exports = Reviews

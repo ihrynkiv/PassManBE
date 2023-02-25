@@ -2,6 +2,7 @@ const httpStatusCodes = require('http-status');
 const usersService = require('../services/users.service');
 const ErrorWithStatus = require("../../utils/ErrorWithStatus");
 const { ERROR_TYPES } = require("../../config/errors");
+const UserService = require('../services/users.service');
 
 exports.getAll = async (req, res, next) => {
   try {
@@ -64,5 +65,24 @@ exports.whoAmI = async (req, res, next) => {
       ERROR_TYPES.databaseError,
       { title: e.title ?? e.message }
     ))
+  }
+}
+
+exports.updateConfiguration = async (req, res, next) => {
+  try {
+    const { configuration } = req.body
+    const { userId } = req.user
+
+    await UserService.update(userId, {configuration})
+
+    req.responseStatus = httpStatusCodes.OK;
+    return next()
+  } catch (e) {
+    return next(
+      new ErrorWithStatus(
+        httpStatusCodes.BAD_REQUEST,
+        ERROR_TYPES.validation,
+        { title: e.title ?? e.message }
+      ))
   }
 }

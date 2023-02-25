@@ -3,29 +3,20 @@
 exports.shorthands = undefined;
 
 exports.up = pgm => {
-  pgm.createTable('passwords', {
+  pgm.createTable('reviews', {
     id: 'id',
-    userId:{
+    prId: {
+      type: 'varchar(256)',
+      unique: true
+    },
+    userId: {
       type: 'integer',
       notNull: true,
       references: 'users',
       onDelete: 'cascade',
     },
-    name: {
-      type: 'varchar(256)',
-      notNull: true
-    },
-    username: {
-      type: 'varchar(256)',
-      notNull: true
-    },
-    password: {
-      type: 'varchar(256)',
-      notNull: true
-    },
-    url: {
-      type: 'varchar(256)',
-      notNull: true
+    configuration: {
+      type: 'json'
     },
     createdAt: {
       type: 'timestamp',

@@ -1,6 +1,6 @@
 const httpStatusCodes = require("http-status");
-const PasswordsController = require('./passwords.controller')
-const PasswordsService = require('../services/passwords.service')
+const ReviewsController = require('./reviews.controller')
+const ReviewsService = require('../services/reviews.service')
 const ErrorWithStatus = require('../../utils/ErrorWithStatus');
 const { ERROR_TYPES } = require('../../config/errors');
 
@@ -8,41 +8,38 @@ const { ERROR_TYPES } = require('../../config/errors');
 let req, res, next;
 let getAllSpy, createSpy, updateSpy, deleteSpy;
 
-describe('passwords.controller', () => {
+describe('reviews.controller', () => {
   beforeEach(() => {
     next = jest.fn()
-    req = {user: {userId: 1}, body: {password: 'password'}}
+    req = {user: {userId: 1}, body: {configuration: {}}}
     res = {}
   });
 
   describe('getAll', () => {
-    const passwordsMock = [{id: 1, password: 'password',
-      url: 'https://google.com/',
-      login: 'mail@mail.com'
-    }]
+    const reviewsMock = [{id: 1, configuration: {}}]
 
     beforeEach(() => {
-      getAllSpy = jest.spyOn(PasswordsService, 'getAll');
+      getAllSpy = jest.spyOn(ReviewsService, 'getAll');
     })
 
     it('should return status OK', async () => {
-      getAllSpy = getAllSpy.mockResolvedValue(passwordsMock)
+      getAllSpy = getAllSpy.mockResolvedValue(reviewsMock)
 
-      await PasswordsController.getAll(req, res, next);
+      await ReviewsController.getAll(req, res, next);
       expect(req.responseStatus).toEqual(httpStatusCodes.OK)
     });
 
     it('should set passwordsMock as responseData', async () => {
-      getAllSpy = getAllSpy.mockResolvedValue(passwordsMock)
+      getAllSpy = getAllSpy.mockResolvedValue(reviewsMock)
 
-      await PasswordsController.getAll(req, res, next);
-      expect(req.responseData).toEqual(passwordsMock)
+      await ReviewsController.getAll(req, res, next);
+      expect(req.responseData).toEqual(reviewsMock)
     });
 
     it('should call next', async () => {
-      getAllSpy = getAllSpy.mockResolvedValue(passwordsMock)
+      getAllSpy = getAllSpy.mockResolvedValue(reviewsMock)
 
-      await PasswordsController.getAll(req, res, next);
+      await ReviewsController.getAll(req, res, next);
       expect(next).toHaveBeenCalled()
     });
 
@@ -51,39 +48,36 @@ describe('passwords.controller', () => {
         throw new Error('test error')
       })
 
-      await PasswordsController.getAll(req, res, next);
+      await ReviewsController.getAll(req, res, next);
       expect(next).toHaveBeenCalledWith(new Error('test error'))
     });
   });
 
   describe('create', () => {
-    const passwordMock = {id: 1, password: 'password',
-      url: 'https://google.com/',
-      login: 'mail@mail.com'
-    }
+    const reviewMock = {id: 1, configuration: {}}
 
     beforeEach(() => {
-      createSpy = jest.spyOn(PasswordsService, 'create')
+      createSpy = jest.spyOn(ReviewsService, 'create')
     })
 
     it('should return status OK', async () => {
-      createSpy = createSpy.mockResolvedValue(passwordMock)
+      createSpy = createSpy.mockResolvedValue(reviewMock)
 
-      await PasswordsController.create(req, res, next);
+      await ReviewsController.create(req, res, next);
       expect(req.responseStatus).toEqual(httpStatusCodes.OK)
     });
 
     it('should set passwordsMock as responseData', async () => {
-      createSpy = createSpy.mockResolvedValue(passwordMock)
+      createSpy = createSpy.mockResolvedValue(reviewMock)
 
-      await PasswordsController.create(req, res, next);
-      expect(req.responseData).toEqual(passwordMock)
+      await ReviewsController.create(req, res, next);
+      expect(req.responseData).toEqual(reviewMock)
     });
 
     it('should call next', async () => {
-      createSpy = createSpy.mockResolvedValue(passwordMock)
+      createSpy = createSpy.mockResolvedValue(reviewMock)
 
-      await PasswordsController.create(req, res, next);
+      await ReviewsController.create(req, res, next);
       expect(next).toHaveBeenCalled()
     });
 
@@ -92,40 +86,37 @@ describe('passwords.controller', () => {
         throw new Error('test error')
       })
 
-      await PasswordsController.create(req, res, next);
+      await ReviewsController.create(req, res, next);
       expect(next).toHaveBeenCalledWith(
         new ErrorWithStatus(httpStatusCodes.BAD_REQUEST, ERROR_TYPES.databaseError, { title: 'test error' }))
     });
   });
 
   describe('update', () => {
-    const passwordMock = {id: 1, password: 'password',
-      url: 'https://google.com/',
-      login: 'mail@mail.com'
-    }
+    const reviewMock = {id: 1, configuration: {}}
 
     beforeEach(() => {
-      updateSpy = jest.spyOn(PasswordsService, 'update')
+      updateSpy = jest.spyOn(ReviewsService, 'update')
     })
 
     it('should return status OK', async () => {
-      updateSpy = updateSpy.mockResolvedValue(passwordMock)
+      updateSpy = updateSpy.mockResolvedValue(reviewMock)
 
-      await PasswordsController.update(req, res, next);
+      await ReviewsController.update(req, res, next);
       expect(req.responseStatus).toEqual(httpStatusCodes.OK)
     });
 
     it('should set passwordsMock as responseData', async () => {
-      updateSpy = updateSpy.mockResolvedValue(passwordMock)
+      updateSpy = updateSpy.mockResolvedValue(reviewMock)
 
-      await PasswordsController.update(req, res, next);
-      expect(req.responseData).toEqual(passwordMock)
+      await ReviewsController.update(req, res, next);
+      expect(req.responseData).toEqual(reviewMock)
     });
 
     it('should call next', async () => {
-      updateSpy = updateSpy.mockResolvedValue(passwordMock)
+      updateSpy = updateSpy.mockResolvedValue(reviewMock)
 
-      await PasswordsController.update(req, res, next);
+      await ReviewsController.update(req, res, next);
       expect(next).toHaveBeenCalled()
     });
 
@@ -134,34 +125,31 @@ describe('passwords.controller', () => {
         throw new Error('test error')
       })
 
-      await PasswordsController.update(req, res, next);
+      await ReviewsController.update(req, res, next);
       expect(next).toHaveBeenCalledWith(
         new ErrorWithStatus(httpStatusCodes.BAD_REQUEST, ERROR_TYPES.databaseError, { title: 'test error' }))
     });
   });
 
   describe('delete', () => {
-    const passwordMock = {id: 1, password: 'password',
-      url: 'https://google.com/',
-      login: 'mail@mail.com'
-    }
+    const reviewMock = {id: 1, configuration: {}}
 
     beforeEach(() => {
-      deleteSpy = jest.spyOn(PasswordsService, 'delete')
+      deleteSpy = jest.spyOn(ReviewsService, 'delete')
       req = {...req, params: {id: 1}}
     })
 
     it('should return status OK', async () => {
-      deleteSpy = deleteSpy.mockResolvedValue(passwordMock)
+      deleteSpy = deleteSpy.mockResolvedValue(reviewMock)
 
-      await PasswordsController.delete(req, res, next);
+      await ReviewsController.delete(req, res, next);
       expect(req.responseStatus).toEqual(httpStatusCodes.OK)
     });
 
     it('should call next', async () => {
-      deleteSpy = deleteSpy.mockResolvedValue(passwordMock)
+      deleteSpy = deleteSpy.mockResolvedValue(reviewMock)
 
-      await PasswordsController.delete(req, res, next);
+      await ReviewsController.delete(req, res, next);
       expect(next).toHaveBeenCalled()
     });
 
@@ -170,7 +158,7 @@ describe('passwords.controller', () => {
         throw new Error('test error')
       })
 
-      await PasswordsController.delete(req, res, next);
+      await ReviewsController.delete(req, res, next);
       expect(next).toHaveBeenCalledWith(
         new ErrorWithStatus(httpStatusCodes.BAD_REQUEST, ERROR_TYPES.databaseError, { title: 'test error' }))
     });

@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('postgres://vanya:root@localhost:5432/passman');
+const sequelize = new Sequelize('postgres://andrii:root@localhost:5432/check-list');
 
   const Users = sequelize.define('users', {
     id: {
@@ -16,6 +16,9 @@ const sequelize = new Sequelize('postgres://vanya:root@localhost:5432/passman');
     password: {
       type: DataTypes.STRING,
       notNull: true
+    },
+    configuration:{
+      type:  DataTypes.JSON,
     },
     createdAt: {
       allowNull: false,
@@ -34,9 +37,21 @@ const sequelize = new Sequelize('postgres://vanya:root@localhost:5432/passman');
   });
 
   Users.associate = (models) => {
-    const Passwords = models['passwords'];
+    const Items = models['items'];
+    const Tabs = models['tabs'];
+    const Reviews = models['review'];
 
-    Users.hasMany(Passwords, {
+    Users.hasMany(Items, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+    });
+
+    Users.hasMany(Tabs, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+    });
+
+    Users.hasMany(Reviews, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });

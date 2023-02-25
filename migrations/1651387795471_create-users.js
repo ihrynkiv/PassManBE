@@ -14,6 +14,9 @@ exports.up = pgm => {
       type: 'varchar(256)',
       notNull: true
     },
+    configuration: {
+      type: 'json'
+    },
     createdAt: {
       type: 'timestamp',
       notNull: true,

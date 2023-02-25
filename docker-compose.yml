@@ -3,8 +3,8 @@ services:
   postgres:
     image: postgres:13.3
     environment:
-      POSTGRES_DB: "passman"
-      POSTGRES_USER: "vanya"
+      POSTGRES_DB: "check-list"
+      POSTGRES_USER: "andrii"
       POSTGRES_PASSWORD: "root"
     ports:
       - "5432:5432"

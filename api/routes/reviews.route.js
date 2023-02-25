@@ -2,29 +2,35 @@ const express = require('express');
 const router = express.Router();
 const response = require('../middlewares/response.middleware')
 const {verifyUser} = require("../middlewares/auth.middleware");
-const passwordsController = require("../controllers/passwords.controller");
+const reviewsController = require("../controllers/reviews.controller");
 
 router.get('/',
   verifyUser,
-  passwordsController.getAll,
+  reviewsController.getAll,
+  response.send
+)
+
+router.get('/pr',
+  verifyUser,
+  reviewsController.getOne,
   response.send
 )
 
 router.post('/',
   verifyUser,
-  passwordsController.create,
+  reviewsController.create,
   response.send
 )
 
 router.put('/:id',
   verifyUser,
-  passwordsController.update,
+  reviewsController.update,
   response.send
 )
 
 router.delete('/:id',
   verifyUser,
-  passwordsController.delete,
+  reviewsController.delete,
   response.send
 )
 
