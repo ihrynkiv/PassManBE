@@ -1,8 +1,8 @@
-# PassMan - Password Manager, Server
+# Check List for PR review, Server
 ## Setup
 
 - You should have Docker (docker-compose), please install if you dont have.
-- Please switch work directory to **PassManBE**
+- Please switch work directory to **this one**
 - Install dependencies: `npm install`
 - Setup database (postgres):
     - Start database image in docker: `docker-compose up -d postgres`
