@@ -10,8 +10,8 @@ exports.create = async (review) => {
 }
 
 exports.update = async (review) => {
-  const updatedReview = await Reviews.update(review, { where: { id: review.id }, returning: true, plain: true})
+  const updatedReview = await Reviews.update(review, { where: { prId: review.prId }, returning: true, plain: true})
   return updatedReview[1]
 }
 
-exports.delete = (id) => Reviews.destroy({ where: { id }})
+exports.delete = (prId) => Reviews.destroy({ where: { prId }})

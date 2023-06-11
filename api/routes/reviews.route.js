@@ -10,7 +10,7 @@ router.get('/',
   response.send
 )
 
-router.get('/pr',
+router.get('/:id',
   verifyUser,
   reviewsController.getOne,
   response.send
@@ -22,13 +22,13 @@ router.post('/',
   response.send
 )
 
-router.put('/:id',
+router.put('/',
   verifyUser,
   reviewsController.update,
   response.send
 )
 
-router.delete('/:id',
+router.delete('/',
   verifyUser,
   reviewsController.delete,
   response.send

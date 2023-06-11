@@ -33,6 +33,16 @@ exports.create = async (req, res, next) => {
   try {
     const {userId} = req.user
     const data = req.body
+    const existedData = await reviewsService.getOne(data.prId)
+
+    if (existedData) {
+      return next(new ErrorWithStatus(
+        httpStatusCodes.FORBIDDEN,
+        ERROR_TYPES.validation,
+        { title: "Try update" }
+      ))
+    }
+
     const createdReview = await reviewsService.create({...data, userId })
     req.responseStatus = httpStatusCodes.OK;
     req.responseData = createdReview
@@ -66,8 +76,8 @@ exports.update = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   try {
-    const {id} = req.params
-    await reviewsService.delete(id)
+    const {prId} = req.body
+    await reviewsService.delete(prId)
     req.responseStatus = httpStatusCodes.OK;
     return next()
   } catch (e) {

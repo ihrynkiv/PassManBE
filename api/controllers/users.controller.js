@@ -55,9 +55,9 @@ exports.create = async (req, res, next) => {
 exports.whoAmI = async (req, res, next) => {
   try {
     const {userId} = req.user
-    const {id, username} = await usersService.find({id: userId})
+    const user = await usersService.find({id: userId})
     req.responseStatus = httpStatusCodes.OK;
-    req.responseData = {id, username};
+    req.responseData = user;
     return next()
   } catch (e) {
     return next(new ErrorWithStatus(
@@ -73,9 +73,10 @@ exports.updateConfiguration = async (req, res, next) => {
     const { configuration } = req.body
     const { userId } = req.user
 
-    await UserService.update(userId, {configuration})
+    const updatedData = await UserService.update(userId, {configuration})
 
     req.responseStatus = httpStatusCodes.OK;
+    req.responseData = updatedData;
     return next()
   } catch (e) {
     return next(

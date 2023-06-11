@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const {jwt_key} = require("../../config/vars");
 const ErrorWithStatus = require("../../utils/ErrorWithStatus");
 const {ERROR_TYPES} = require("../../config/errors");
+const httpStatusCodes = require('http-status');
 
 exports.verifyUser = (req, res, next) => {
     try {
@@ -14,9 +15,9 @@ exports.verifyUser = (req, res, next) => {
     } catch (e) {
         return next(
             new ErrorWithStatus(
-                401,
+              httpStatusCodes.UNAUTHORIZED,
                 ERROR_TYPES.validation,
-                { title: e.title ?? e.message }
+                e
             ))
     }
 };
