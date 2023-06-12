@@ -27,7 +27,7 @@ describe('auth.middleware', () => {
       expect(next).toHaveBeenCalledWith(new ErrorWithStatus(
         401,
         ERROR_TYPES.validation,
-        { title: 'User unauthorized' }
+        new Error('User unauthorized')
       ))
     });
   });

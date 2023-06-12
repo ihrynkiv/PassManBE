@@ -6,13 +6,15 @@ const { ERROR_TYPES } = require('../../config/errors');
 
 
 let req, res, next;
-let getAllSpy, createSpy, updateSpy, deleteSpy;
+let getAllSpy, createSpy, getOneSpy, updateSpy, deleteSpy;
 
 describe('reviews.controller', () => {
   beforeEach(() => {
     next = jest.fn()
     req = {user: {userId: 1}, body: {configuration: {}}}
     res = {}
+
+    getOneSpy = jest.spyOn(ReviewsService, 'getOne')
   });
 
   describe('getAll', () => {
@@ -58,6 +60,7 @@ describe('reviews.controller', () => {
 
     beforeEach(() => {
       createSpy = jest.spyOn(ReviewsService, 'create')
+      getOneSpy = getOneSpy.mockResolvedValue(null)
     })
 
     it('should return status OK', async () => {
